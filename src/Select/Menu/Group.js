@@ -10,11 +10,11 @@ import { filterKeys, classNames } from "../.shared/helpers";
 const styles = theme => ({
   root: {
     width: "100%",
-    fontSize: theme.size / 2 + 2,
+    fontSize: theme.size / 2,
     fontFamily: theme.fontFamily
   },
   header: {
-    fontSize: theme.size / 2,
+    fontSize: theme.size / 2 - 2,
     height: theme.size,
     lineHeight: theme.size + "px",
     paddingLeft: theme.optionPadding

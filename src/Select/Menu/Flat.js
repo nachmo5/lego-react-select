@@ -9,7 +9,7 @@ import { filterKeys, classNames } from "../.shared/helpers";
 const styles = theme => ({
   root: {
     width: "100%",
-    fontSize: theme.size / 2 + 2,
+    fontSize: theme.size / 2,
     fontFamily: theme.fontFamily
   },
   option: {
