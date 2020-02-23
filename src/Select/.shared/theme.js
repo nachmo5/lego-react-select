@@ -1,5 +1,6 @@
 export default {
   size: 24,
+  borderRadius: 2,
   // THEME
   primaryColor: "#13275c",
   gray: "#d9d9d9",
@@ -9,9 +10,12 @@ export default {
   // TAGS
   spaceBetweenTags: 5,
   spaceBetweenRows: 3,
-  rowHeight: 30,
   // INPUT
-  inputMinWidth: 20,
+  inputMinWidth: 50,
   // MULTI
-  valuePadding: 3
+  valuePadding: 3,
+  // MENU
+  optionHeight: 40,
+  menuMaxHeight: 300,
+  optionPadding: 5
 };

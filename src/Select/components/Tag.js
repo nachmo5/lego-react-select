@@ -12,7 +12,7 @@ const styles = theme => ({
     height: "100%",
     // border
     border: "1px solid " + theme.gray,
-    borderRadius: "4px",
+    borderRadius: theme.borderRadius,
     // padding
     paddingLeft: 7,
     paddingRight: 7,
@@ -47,7 +47,7 @@ const Tag = props => {
   // -styles
   const containerStyle = filterKeys(style, ["closeIcon", "label"]);
   // -className
-  const containerClass = className["container"] || ""
+  const containerClass = className["container"] || "";
 
   return (
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
@@ -59,7 +59,7 @@ const Tag = props => {
           centerY
         />
       </div>
-      <div className={c.closeIcon}>
+      <div className={c.closeIcon} onClick={e => e.stopPropagation()}>
         <CloseIcon
           style={style.closeIcon}
           className={className.closeIcon}
@@ -73,7 +73,7 @@ const Tag = props => {
 Tag.defaultProps = {
   components: {},
   style: {},
-  className: "",
+  className: ""
 };
 
 export default injectSheet(styles)(Tag);
