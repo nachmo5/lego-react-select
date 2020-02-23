@@ -5,11 +5,12 @@ import DefaultValue from "./Value";
 import DefaultMenu from "./Menu";
 
 // Styles
-import injectSheet from "react-jss";
+import injectSheet, { ThemeProvider } from "react-jss";
 import styles from "./style";
 
 import { classNames, filterKeys } from "./.shared/helpers";
-import { CONFIG } from "./.shared/constants";
+import defaultTheme from "./.shared/theme";
+
 /**
  * -components => {
  *      value:{
@@ -26,7 +27,7 @@ import { CONFIG } from "./.shared/constants";
 
 const Select = props => {
   // Main props
-  const { classes: c, components = {}, style, className } = props;
+  const { classes: c, components = {}, style, className, theme } = props;
   // VALUE props
   const { value, multiple } = props;
   // MENU props
@@ -40,40 +41,47 @@ const Select = props => {
   // -styles
   const containerStyle = filterKeys(style, ["value", "menu"]);
   // -className
-  const containerClass = filterKeys(className, ["value", "menu"]);
+  const containerClass = className["container"] || ""
 
+  const [focused, setFocused] = React.useState();
   return (
-    <div className={classNames(c.root, containerClass)} style={containerStyle}>
-      <div className={c.value}>
-        <Value
-          multiple={multiple}
-          value={value}
-          // trio
-          theme={CONFIG}
-          components={components.value}
-          style={style.value}
-          className={className.value}
-        />
+    <ThemeProvider theme={{ ...defaultTheme, ...theme }}>
+      <div
+        className={classNames(c.root, containerClass)}
+        style={containerStyle}
+      >
+        <div className={c.value}>
+          <Value
+            multiple={multiple}
+            value={value}
+            focused={focused}
+            // trio
+            components={components.value}
+            style={style.value}
+            className={className.value}
+          />
+        </div>
+        <div className={c.menu}>
+          <Menu
+            options={options}
+            // trio
+            components={components.menu}
+            style={style.menu}
+            className={className.menu}
+          />
+        </div>
       </div>
-      <div className={c.menu}>
-        <Menu
-          options={options}
-          // trio
-          theme={CONFIG}
-          components={components.menu}
-          style={style.menu}
-          className={className.menu}
-        />
-      </div>
-    </div>
+      <div onClick={() => setFocused(!focused)}>Toggle</div>
+    </ThemeProvider>
   );
 };
 
 Select.defaultProps = {
   components: {},
   style: {},
-  className: {},
-  multiple: false
+  className: "",
+  multiple: false,
+  theme: {}
 };
 
 export default injectSheet(styles)(Select);

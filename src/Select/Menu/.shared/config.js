@@ -1,10 +1,10 @@
-export const CONFIG = {
+export default {
+  SIZE: 12,
   // THEME
   PRIMARY_COLOR: "#13275c",
   GRAY: "#d9d9d9",
   GRAY2: "#e9e9e9",
   // TEXT
-  FONT_SIZE: 12,
   FONT_FAMILY: "Helvetica",
   // TAGS
   SPACE_BETWEEN_TAGS: 5,

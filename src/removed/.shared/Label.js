@@ -3,17 +3,16 @@ import React from "react";
 // Styles
 import injectSheet from "react-jss";
 
-import { classNames } from "../../../.shared/helpers";
-import { CONFIG } from "../../../.shared/constants";
+import { classNames } from "../../.shared/helpers";
 
-const styles = {
+const styles = theme => ({
   root: {
-    fontSize: CONFIG.FONT_SIZE,
     lineHeight: "100%",
-    color: CONFIG.PRIMARY_COLOR,
-    fontFamily: CONFIG.FONT_FAMILY
+    color: theme.PRIMARY_COLOR,
+    fontFamily: theme.FONT_FAMILY,
+    fontSize: theme.SIZE * 1.15
   }
-};
+});
 
 const Label = props => {
   const { classes: c, style, className, value } = props;
@@ -28,7 +27,7 @@ const Label = props => {
 Label.defaultProps = {
   components: {},
   style: {},
-  className: {}
+  className: ""
 };
 
 export default injectSheet(styles)(Label);

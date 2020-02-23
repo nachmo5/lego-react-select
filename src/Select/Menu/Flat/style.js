@@ -1,4 +1,4 @@
-import { CONFIG } from "../../.shared/constants";
+import CONFIG from "../.shared/config";
 
 export default {
   root: {}

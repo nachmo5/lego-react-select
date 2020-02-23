@@ -2,7 +2,7 @@ import React, { isValidElement } from "react";
 
 // Components
 import DefaultCloseIcon from "./CloseIcon";
-import DefaultLabel from "./Label";
+import DefaultLabel from "../../.shared/Label";
 
 // Styles
 import injectSheet from "react-jss";
@@ -36,7 +36,7 @@ const Tag = props => {
 Tag.defaultProps = {
   components: {},
   style: {},
-  className: {}
+  className: "",
 };
 
 export default injectSheet(styles)(Tag);

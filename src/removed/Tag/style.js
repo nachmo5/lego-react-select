@@ -1,11 +1,9 @@
-import { CONFIG } from "../../../.shared/constants";
-
-export default {
+export default theme => ({
   root: {
     display: "flex",
     height: "100%",
     // border
-    border: "1px solid " + CONFIG.GRAY,
+    border: "1px solid " + theme.GRAY,
     borderRadius: "4px",
     // padding
     paddingLeft: 7,
@@ -24,4 +22,4 @@ export default {
     marginRight: 5
   },
   closeIcon: {}
-};
+});

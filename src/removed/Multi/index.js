@@ -1,8 +1,8 @@
 import React, { isValidElement } from "react";
 
 // Components
-import DefaultTag from "./Tag";
-import DefaultInput from "../.shared/Input";
+import DefaultTag from "../../components/Tag";
+import DefaultInput from "../../components/Input";
 
 // Styles
 import injectSheet from "react-jss";
@@ -45,7 +45,7 @@ const Multi = props => {
 Multi.defaultProps = {
   components: {},
   style: {},
-  className: {}
+  className: ""
 };
 
 export default injectSheet(styles)(Multi);

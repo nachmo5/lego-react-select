@@ -3,22 +3,21 @@ import React from "react";
 // Styles
 import injectSheet from "react-jss";
 import { classNames } from "../../../.shared/helpers";
-import { CONFIG } from "../../../.shared/constants";
 
-const styles = {
+const styles = theme => ({
   root: {
     position: "relative",
-    bottom: CONFIG.FONT_SIZE * 0.1,
+    bottom: theme.SIZE * 0.1,
     cursor: "pointer",
-    color: CONFIG.GRAY,
-    fontSize: CONFIG.FONT_SIZE * 1.15,
+    color: theme.GRAY,
+    fontSize: theme.SIZE * 1.15,
     lineHeight: "100%",
-    fontFamily: CONFIG.FONT_FAMILY,
+    fontFamily: theme.FONT_FAMILY,
     "&:hover": {
-      color: CONFIG.PRIMARY_COLOR
+      color: theme.PRIMARY_COLOR
     }
   }
-};
+});
 
 const CloseIcon = props => {
   const { classes: c, style, className } = props;
@@ -33,7 +32,7 @@ const CloseIcon = props => {
 CloseIcon.defaultProps = {
   components: {},
   style: {},
-  className: {}
+  className: "",
 };
 
 export default injectSheet(styles)(CloseIcon);

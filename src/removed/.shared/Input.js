@@ -1,37 +1,37 @@
 import React from "react";
 import injectSheet from "react-jss";
-import { CONFIG } from "../../.shared/constants";
 import { classNames } from "../../.shared/helpers";
 
-const styles = {
+const styles = theme => ({
   root: {
-    border: "1px solid black",
-    minHeight: CONFIG.FONT_SIZE * 1.15,
-    minWidth: CONFIG.INPUT_MIN_WIDTH,
-    fontFamily: CONFIG.FONT_FAMILY * 1.15,
-    fontSize: CONFIG.FONT_SIZE * 1.15,
-    color: CONFIG.PRIMARY_COLOR,
-    paddingLeft: 5,
+    height: "100%",
+    width: "100%",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    fontFamily: theme.FONT_FAMILY,
+    color: theme.PRIMARY_COLOR,
     "&:focus": {
       outline: 0
     },
     "&:empty:before": {
+      fontFamily: theme.FONT_FAMILY,
+      color: theme.PRIMARY_COLOR,
       content: "attr(placeholder)",
       display: "block",
-      fontFamily: CONFIG.FONT_FAMILY * 1.15,
-      fontSize: CONFIG.FONT_SIZE * 1.15,
-      color: CONFIG.PRIMARY_COLOR,
       opacity: "0.4"
     }
+  },
+  multiline: {
+    whiteSpace: "normal"
   }
-};
+});
 
 const Input = props => {
   const {
     classes: c,
     style,
     className,
-    breakable,
+    multiline,
     placeholder,
     focused
   } = props;
@@ -43,26 +43,28 @@ const Input = props => {
   });
 
   const onKeyPress = e => {
-    if (e.key === "Enter" && !breakable) {
+    if (e.key === "Enter" && !multiline) {
       e.preventDefault();
     }
   };
   const onChange = e => {};
   return (
     <div
-      className={classNames(c.root, className)}
-      style={style}
       ref={ref}
       contentEditable
+      placeholder={placeholder}
+      // style
+      className={classNames(c.root, className, [c.multiline, multiline])}
+      style={style}
+      // Methods
       onKeyPress={onKeyPress}
       onInput={onChange}
-      placeholder={placeholder}
     />
   );
 };
 
 Input.defaultProps = {
-  breakable: false,
+  multiline: false,
   placeholder: "",
   focused: true
 };
