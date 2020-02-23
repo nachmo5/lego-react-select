@@ -5,8 +5,7 @@ import injectSheet from "react-jss";
 
 import DefaultSingle from "./Single";
 import DefaultMulti from "./Multi";
-import Label from "../components/Label";
-import { Icon } from "antd";
+import DefaultDropIcon from "../components/DropIcon";
 import { classNames, filterKeys } from "../.shared/helpers";
 
 const styles = theme => ({
@@ -17,12 +16,7 @@ const styles = theme => ({
   },
   suffix: {
     padding: theme.valuePadding,
-    fontSize: theme.size / 2,
-  },
-  dropIcon: {
-    // icon
-    height: theme.size,
-    lineHeight: theme.size + "px"
+    fontSize: theme.size / 2
   }
 });
 
@@ -37,11 +31,12 @@ const Value = props => {
     focused
   } = props;
   // -components
-  const { single, multi } = components;
+  const { single, multi, dropIcon } = components;
   const Single = isValidElement(single) ? single : DefaultSingle;
   const Multi = isValidElement(multi) ? multi : DefaultMulti;
+  const DropIcon = isValidElement(dropIcon) ? dropIcon : DefaultDropIcon;
   // -styles
-  const containerStyle = filterKeys(style, ["single", "multi"]);
+  const containerStyle = filterKeys(style, ["single", "multi", "dropIcon"]);
   // -className
   const containerClass = className["container"] || "";
 
@@ -68,19 +63,7 @@ const Value = props => {
         )}
       </div>
       <div className={c.suffix}>
-        <div className={c.dropIcon}>
-          <Label
-            value={
-              <Icon
-                type="down"
-                style={{
-                  display: "flex",
-                  alignItems: "center"
-                }}
-              />
-            }
-          />
-        </div>
+        <DropIcon />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import Select from "./Select";
 import { ThemeProvider } from "react-jss";
 import "antd/dist/antd.css";
-import Input from "./Input";
+import Tag from "./Tag/Tag";
 import { Row, Col } from "antd";
 function App() {
   const [tags, setTags] = React.useState(["Tesp1", "Test2___"]);
@@ -14,49 +14,6 @@ function App() {
       theme={{ fontSize: 12, gray: "gray", fontFamily: "Helvetica" }}
     >
       <div className="App">
-        <div
-          style={{
-            border: "1px solid red",
-            width: 300,
-            display: "flex",
-            padding: 25
-          }}
-        >
-          <div
-            style={{
-              border: "1px solid black",
-              flexGrow: 1,
-              overflow: "hidden"
-            }}
-          >
-            <div
-              style={{
-                width: "100%",
-                // display
-                overflow: "hidden",
-                textOverflow: "clip"
-              }}
-            >
-              aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa{" "}
-            </div>
-          </div>
-        </div>
-
-        <br />
-        <br />
-        <div
-          style={{
-            border: "1px solid red",
-            width: 300,
-            padding: 20,
-            display: "flex",
-            flexWrap: "wrap"
-          }}
-        >
-          <div style={{ flexGrow: 1 }}>
-            <Input style={{}} />
-          </div>
-        </div>
         <div>
           <div>Multiple</div>
           <div style={{ width: 300, marginBottom: 50 }}>
@@ -73,6 +30,29 @@ function App() {
             >
               REMOVE
             </button>
+          </div>
+        </div>
+        <div>
+          <div>Single</div>
+          <div style={{ width: 300, marginBottom: 50 }}>
+            <Select value={value} />
+          </div>
+        </div>
+        <div
+          style={{
+            border: "1px solid black",
+            paddingTop: 0,
+            paddingLeft: 100
+          }}
+        >
+          <div
+            style={{
+              height: 100,
+              width: 300,
+              background: "#eaf"
+            }}
+          >
+            <Tag value={"Hply"} />
           </div>
         </div>
       </div>

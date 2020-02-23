@@ -1,26 +1,26 @@
 import React from "react";
 
 import Label from "./Label";
-import Icon from "antd";
+import { Icon } from "antd";
 
 // Styles
 import injectSheet from "react-jss";
 
 import { classNames } from "../.shared/helpers";
 
-const styles = {
+const styles = theme => ({
   root: {
-    display: "flex",
-    width: "100%",
-    height: "100%"
-  },
-  centerX: {
-    justifyContent: "center"
-  },
-  centerY: {
-    alignItems: "center"
+    height: theme.size,
+    lineHeight: theme.size + "px",
+    cursor: "pointer",
+    paddingLeft: 3,
+    paddingRight: 3,
+    color: theme.gray,
+    "&:hover": {
+      color: theme.primaryColor
+    }
   }
-};
+});
 
 const DropIcon = props => {
   const { classes: c, style, className } = props;
