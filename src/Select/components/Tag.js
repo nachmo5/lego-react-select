@@ -5,6 +5,7 @@ import injectSheet from "react-jss";
 
 import { classNames, filterKeys } from "../.shared/helpers";
 import DefaultLabel from "./Label";
+import DefaultCloseIcon from "./CloseIcon";
 
 const styles = theme => ({
   root: {
@@ -42,7 +43,7 @@ const Tag = props => {
   const { classes: c, style, className, value, components } = props;
   // -components
   const { closeIcon, label } = components;
-  const CloseIcon = isValidElement(closeIcon) ? closeIcon : DefaultLabel;
+  const CloseIcon = isValidElement(closeIcon) ? closeIcon : DefaultCloseIcon;
   const Label = isValidElement(label) ? label : DefaultLabel;
   // -styles
   const containerStyle = filterKeys(style, ["closeIcon", "label"]);
@@ -60,11 +61,7 @@ const Tag = props => {
         />
       </div>
       <div className={c.closeIcon} onClick={e => e.stopPropagation()}>
-        <CloseIcon
-          style={style.closeIcon}
-          className={className.closeIcon}
-          value="x"
-        />
+        <CloseIcon style={style.closeIcon} className={className.closeIcon} />
       </div>
     </div>
   );

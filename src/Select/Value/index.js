@@ -18,6 +18,9 @@ const styles = theme => ({
       borderColor: theme.primaryColor
     }
   },
+  focused: {
+    borderColor: theme.primaryColor
+  },
   valueBox: {
     flexGrow: 1,
     overflow: "hidden"
@@ -49,7 +52,10 @@ const Value = props => {
   // -className
   const containerClass = className["container"] || "";
   return (
-    <div className={classNames(c.root, containerClass)} style={containerStyle}>
+    <div
+      className={classNames(c.root, containerClass, [c.focused, focused])}
+      style={containerStyle}
+    >
       <div className={c.valueBox}>
         {multiple ? (
           <Multi
