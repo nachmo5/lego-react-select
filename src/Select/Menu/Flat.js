@@ -26,7 +26,14 @@ const styles = theme => ({
 });
 
 const Flat = props => {
-  const { classes: c, options, style, components, className } = props;
+  const {
+    classes: c,
+    options,
+    style,
+    components,
+    className,
+    onOptionClick
+  } = props;
 
   // -components
   const { option } = components;
@@ -36,10 +43,12 @@ const Flat = props => {
   // -className
   const containerClass = className["container"] || "";
 
+  const optionClick = option => e => onOptionClick(option, e);
+
   return (
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
       {options.map(option => (
-        <div key={option} onClick={option.onClick} className={c.option}>
+        <div key={option} onClick={optionClick} className={c.option}>
           <Option
             value={option}
             style={style.option}

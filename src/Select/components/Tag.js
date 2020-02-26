@@ -40,7 +40,14 @@ const styles = theme => ({
 });
 
 const Tag = props => {
-  const { classes: c, style, className, value, components } = props;
+  const {
+    classes: c,
+    style,
+    className,
+    value,
+    components,
+    onDeleteIconClick
+  } = props;
   // -components
   const { closeIcon, label } = components;
   const CloseIcon = isValidElement(closeIcon) ? closeIcon : DefaultCloseIcon;
@@ -60,7 +67,7 @@ const Tag = props => {
           centerY
         />
       </div>
-      <div className={c.closeIcon} onClick={e => e.stopPropagation()}>
+      <div className={c.closeIcon} onClick={onDeleteIconClick}>
         <CloseIcon style={style.closeIcon} className={className.closeIcon} />
       </div>
     </div>

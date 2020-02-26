@@ -26,14 +26,22 @@ const Select = React.forwardRef((props, ref) => {
     style,
     className,
     focused,
-    dropped,
+    dropped
+  } = props;
+  const {
     onClick,
-    onValueClick
+    onValueClick,
+    onInputChange,
+    onDeleteIconClick,
+    onInputKeyPress,
+    onGroupHeaderClick,
+    onOptionClick,
+    onMenuClick
   } = props;
   // VALUE props
   const { value, multiple } = props;
   // MENU props
-  const { options, groupped, onSelect } = props;
+  const { options, groupped } = props;
   // -components
   const Value = isValidElement(components.value)
     ? components.value
@@ -61,9 +69,16 @@ const Select = React.forwardRef((props, ref) => {
           components={components.value}
           style={style.value}
           className={className.value}
+          // methods
+          onInputChange={onInputChange}
+          onDeleteIconClick={onDeleteIconClick}
+          onInputKeyPress={onInputKeyPress}
         />
       </div>
-      <div className={classNames(c.menu, [c.hidden, !dropped])}>
+      <div
+        className={classNames(c.menu, [c.hidden, !dropped])}
+        onClick={onMenuClick}
+      >
         <Menu
           options={options}
           groupped={groupped}
@@ -71,6 +86,9 @@ const Select = React.forwardRef((props, ref) => {
           components={components.menu}
           style={style.menu}
           className={className.menu}
+          // methods
+          onGroupHeaderClick={onGroupHeaderClick}
+          onOptionClick={onOptionClick}
         />
       </div>
     </div>

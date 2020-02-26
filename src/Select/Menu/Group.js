@@ -17,7 +17,8 @@ const styles = theme => ({
     fontSize: theme.size / 2 - 2,
     height: theme.size,
     lineHeight: theme.size + "px",
-    paddingLeft: theme.optionPadding
+    paddingLeft: theme.optionPadding,
+    cursor: "pointer"
   },
   option: {
     cursor: "pointer",
@@ -33,7 +34,15 @@ const styles = theme => ({
 });
 
 const Flat = props => {
-  const { classes: c, groups, style, components, className } = props;
+  const {
+    classes: c,
+    groups,
+    style,
+    components,
+    className,
+    onGroupHeaderClick,
+    onOptionClick
+  } = props;
 
   // -components
   const { option, header } = components;
@@ -44,16 +53,23 @@ const Flat = props => {
   // -className
   const containerClass = className["container"] || "";
 
+  const optionClick = (option, group) => e => onOptionClick(option, e, group);
+  const groupClick = group => e => onGroupHeaderClick(group, e);
+
   return (
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
       {groups.map((group, g) => (
         <div key={g} className={c.group}>
-          <div className={c.header}>
+          <div className={c.header} onClick={groupClick(group)}>
             <Header value={group.name} onClick={group.onClick} />
           </div>
           <div className={c.options}>
             {group.options.map((option, o) => (
-              <div key={o} onClick={option.onClick} className={c.option}>
+              <div
+                key={o}
+                onClick={optionClick(option, group)}
+                className={c.option}
+              >
                 <Option
                   value={option}
                   style={style.option}

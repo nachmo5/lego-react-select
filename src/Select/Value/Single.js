@@ -39,7 +39,9 @@ const Single = props => {
     className,
     placeholder,
     value,
-    focused
+    focused,
+    onInputChange,
+    onInputKeyPress
   } = props;
 
   // -components
@@ -59,6 +61,8 @@ const Single = props => {
             style={style.input}
             className={className.input}
             placeholder={value || placeholder}
+            onChange={onInputChange}
+            onKeyPress={onInputKeyPress}
           />
         </div>
       ) : (
@@ -78,7 +82,7 @@ Single.defaultProps = {
   components: {},
   style: {},
   className: "",
-  placeholder: "Select an option",
+  placeholder: "",
   focused: false
 };
 

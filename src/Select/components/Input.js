@@ -45,8 +45,9 @@ const Input = props => {
     if (e.key === "Enter" && !multiline) {
       e.preventDefault();
     }
+    props.onKeyPress(e);
   };
-  const onChange = e => {};
+
   return (
     <div
       ref={ref}
@@ -57,7 +58,7 @@ const Input = props => {
       style={style}
       // Methods
       onKeyPress={onKeyPress}
-      onInput={onChange}
+      onInput={props.onChange}
     />
   );
 };

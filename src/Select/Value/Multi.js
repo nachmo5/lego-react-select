@@ -39,7 +39,16 @@ const styles = theme => ({
 });
 
 const Multi = props => {
-  const { classes: c, components, style, className, values } = props;
+  const {
+    classes: c,
+    components,
+    style,
+    className,
+    values,
+    onInputChange,
+    onDeleteIconClick,
+    onInputKeyPress
+  } = props;
   // -components
   const { input, tag } = components;
   const Input = isValidElement(input) ? input : DefaultInput;
@@ -60,11 +69,18 @@ const Multi = props => {
             components={components.tag}
             style={style.tag}
             className={className.tag}
+            // methods
+            onDeleteIconClick={onDeleteIconClick}
           />
         </div>
       ))}
       <div className={c.input}>
-        <Input style={style.input} className={className.input} />
+        <Input
+          style={style.input}
+          className={className.input}
+          onChange={onInputChange}
+          onKeyPress={onInputKeyPress}
+        />
       </div>
     </div>
   );

@@ -40,7 +40,10 @@ const Value = props => {
     multiple,
     value,
     focused,
-    dropIconVisible
+    dropIconVisible,
+    onInputChange,
+    onDeleteIconClick,
+    onInputKeyPress
   } = props;
   // -components
   const { single, multi, dropIcon } = components;
@@ -64,6 +67,10 @@ const Value = props => {
             components={components.multi}
             style={style.multi}
             className={className.multi}
+            // methods
+            onInputChange={onInputChange}
+            onDeleteIconClick={onDeleteIconClick}
+            onInputKeyPress={onInputKeyPress}
           />
         ) : (
           <Single
@@ -73,6 +80,9 @@ const Value = props => {
             components={components.single}
             style={style.single}
             className={className.single}
+            // methods
+            onInputChange={onInputChange}
+            onInputKeyPress={onInputKeyPress}
           />
         )}
       </div>

@@ -24,7 +24,16 @@ const styles = theme => ({
 });
 
 const Menu = props => {
-  const { classes: c, options, groupped, style, components, className } = props;
+  const {
+    classes: c,
+    options,
+    groupped,
+    style,
+    components,
+    className,
+    onGroupHeaderClick,
+    onOptionClick
+  } = props;
 
   // -components
   const { flat, group } = components;
@@ -37,7 +46,15 @@ const Menu = props => {
 
   return (
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
-      {groupped ? <Group groups={options} /> : <Flat options={options} />}
+      {groupped ? (
+        <Group
+          groups={options}
+          onGroupHeaderClick={onGroupHeaderClick}
+          onOptionClick={onOptionClick}
+        />
+      ) : (
+        <Flat options={options} onOptionClick={onOptionClick} />
+      )}
     </div>
   );
 };
