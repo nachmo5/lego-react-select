@@ -7,72 +7,101 @@ import defaultTheme from "./.shared/theme";
 import View from "./view";
 
 const Select = props => {
-  const { theme, multiple } = props;
+  const { theme, multiple, options, groupped, value } = props;
   // Hooks
   const [focused, setFocused] = useState(false);
   const [dropped, setDropped] = useState(false);
+  const [searched, setSearched] = useState(null);
+  const [finalValue, setFinalValue] = useState(value);
   const ref = useRef();
 
   useEffect(() => {
     document.addEventListener("mousedown", onOutsideClick);
     return () => document.removeEventListener("mousedown", onOutsideClick);
   });
-  /* ======== Methods ======== */
+
+  /* ======== Data handlers ======== */
+  const filterOptions = os =>
+    os.filter(o => {
+      if (searched && searched.length > 0) {
+        return o.toLowerCase().includes(searched.toLowerCase());
+      }
+      return o;
+    });
+  const filterGroups = gs => {
+    const filtered = gs.map(g => ({
+      name: g.name,
+      options: filterOptions(g.options)
+    }));
+    return filtered.filter(g => g.options.length > 0);
+  };
+  /* ======== Event handlers ======== */
   const onOutsideClick = e => {
     handleOutsideClick(e, ref, () => {
       setDropped(false);
       setFocused(false);
+      setSearched(null);
     });
   };
 
   // ______________Root
-  const onClick = () => {
-    setFocused(true);
-    console.log("On Click");
-  };
+  const onClick = () => {};
   // ______________Value
   const onValueClick = () => {
     setDropped(prev => !prev);
-    console.log("onValueClick");
+    setFocused(true);
   };
-  const onInputChange = () => {
-    console.log("onInputChange");
-  };
-  const onDeleteIconClick = e => {
+  const onInputChange = e => setSearched(e.target.innerHTML);
+  const onDeleteIconClick = (value, e) => {
     e.stopPropagation();
-    console.log("onDeleteIconClick");
+    setFinalValue(finalValue.filter(v => v !== value));
   };
-  const onInputKeyPress = () => {
-    console.log("onInputKeyPress");
+  const onInputKeyPress = e => {
+    console.log("a");
   };
   // ______________Menu
-  const onGroupHeaderClick = () => {
-    console.log("onGroupHeaderClick");
-  };
-  const onOptionClick = () => {
-    console.log("onOptionClick");
+  const onGroupHeaderClick = () => {};
+  const onOptionClick = option => {
+    if (!multiple) {
+      setFinalValue(option);
+    } else {
+      setFinalValue([...finalValue, option]);
+    }
   };
   const onMenuClick = () => {
-    console.log("onMenuClick");
+    if (!multiple) {
+      setDropped(false);
+      setFocused(false);
+    }
+    setSearched(null);
   };
+
+  const finalOptions = groupped
+    ? filterGroups(options)
+    : filterOptions(options);
 
   return (
     <ThemeProvider theme={{ ...defaultTheme, ...theme }}>
-      <View
-        {...props}
-        ref={ref}
-        focused={focused}
-        dropped={dropped}
-        // Methods
-        onClick={onClick}
-        onValueClick={onValueClick}
-        onInputChange={onInputChange}
-        onDeleteIconClick={onDeleteIconClick}
-        onInputKeyPress={onInputKeyPress}
-        onGroupHeaderClick={onGroupHeaderClick}
-        onOptionClick={onOptionClick}
-        onMenuClick={onMenuClick}
-      />
+      <div>
+        <div>{focused ? "focused" : "not focused"}</div>
+        <View
+          {...props}
+          ref={ref}
+          focused={focused}
+          dropped={dropped}
+          options={finalOptions}
+          value={finalValue}
+          // Methods
+          onClick={onClick}
+          onValueClick={onValueClick}
+          onInputChange={onInputChange}
+          onDeleteIconClick={onDeleteIconClick}
+          onInputKeyPress={onInputKeyPress}
+          onGroupHeaderClick={onGroupHeaderClick}
+          onOptionClick={onOptionClick}
+          onMenuClick={onMenuClick}
+        />
+      </div>
     </ThemeProvider>
   );
 };

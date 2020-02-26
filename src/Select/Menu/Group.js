@@ -14,11 +14,12 @@ const styles = theme => ({
     fontFamily: theme.fontFamily
   },
   header: {
-    fontSize: theme.size / 2 - 2,
+    fontSize: theme.size / 2,
     height: theme.size,
     lineHeight: theme.size + "px",
     paddingLeft: theme.optionPadding,
-    cursor: "pointer"
+    cursor: "pointer",
+    color: "rgb(0, 0, 0, 0.45)"
   },
   option: {
     cursor: "pointer",

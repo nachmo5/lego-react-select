@@ -58,6 +58,7 @@ const Multi = props => {
   // -className
   const containerClass = className["container"] || "";
 
+  const remove = value => e => onDeleteIconClick(value, e);
   return (
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
       {values.map((value, i) => (
@@ -70,7 +71,7 @@ const Multi = props => {
             style={style.tag}
             className={className.tag}
             // methods
-            onDeleteIconClick={onDeleteIconClick}
+            onDeleteIconClick={remove(value)}
           />
         </div>
       ))}

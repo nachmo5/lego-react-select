@@ -48,7 +48,7 @@ const Flat = props => {
   return (
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
       {options.map(option => (
-        <div key={option} onClick={optionClick} className={c.option}>
+        <div key={option} onClick={optionClick(option)} className={c.option}>
           <Option
             value={option}
             style={style.option}
