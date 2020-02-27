@@ -26,7 +26,8 @@ const Select = React.forwardRef((props, ref) => {
     style,
     className,
     focused,
-    dropped
+    dropped,
+    dropIconVisible
   } = props;
   const {
     onClick,
@@ -36,7 +37,8 @@ const Select = React.forwardRef((props, ref) => {
     onInputKeyPress,
     onGroupHeaderClick,
     onOptionClick,
-    onMenuClick
+    onMenuClick,
+    inputValue
   } = props;
   // VALUE props
   const { value, multiple } = props;
@@ -64,7 +66,8 @@ const Select = React.forwardRef((props, ref) => {
           multiple={multiple}
           value={value}
           focused={focused}
-          dropIconVisible={!dropped}
+          dropIconVisible={dropIconVisible}
+          inputValue={inputValue}
           // trio
           components={components.value}
           style={style.value}

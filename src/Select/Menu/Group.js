@@ -65,16 +65,17 @@ const Flat = props => {
             <Header value={group.name} onClick={group.onClick} />
           </div>
           <div className={c.options}>
-            {group.options.map((option, o) => (
+            {group.options.map(option => (
               <div
-                key={o}
+                key={option.id}
                 onClick={optionClick(option, group)}
                 className={c.option}
               >
                 <Option
-                  value={option}
+                  value={option.label}
                   style={style.option}
                   className={className.option}
+                  selected={option.selected}
                 />
               </div>
             ))}

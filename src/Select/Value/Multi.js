@@ -47,7 +47,8 @@ const Multi = props => {
     values,
     onInputChange,
     onDeleteIconClick,
-    onInputKeyPress
+    onInputKeyPress,
+    inputValue
   } = props;
   // -components
   const { input, tag } = components;
@@ -59,6 +60,7 @@ const Multi = props => {
   const containerClass = className["container"] || "";
 
   const remove = value => e => onDeleteIconClick(value, e);
+
   return (
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
       {values.map((value, i) => (
@@ -77,6 +79,8 @@ const Multi = props => {
       ))}
       <div className={c.input}>
         <Input
+          controlled
+          value={inputValue}
           style={style.input}
           className={className.input}
           onChange={onInputChange}

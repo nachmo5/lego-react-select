@@ -43,7 +43,8 @@ const Value = props => {
     dropIconVisible,
     onInputChange,
     onDeleteIconClick,
-    onInputKeyPress
+    onInputKeyPress,
+    inputValue
   } = props;
   // -components
   const { single, multi, dropIcon } = components;
@@ -54,6 +55,7 @@ const Value = props => {
   const containerStyle = filterKeys(style, ["single", "multi", "dropIcon"]);
   // -className
   const containerClass = className["container"] || "";
+  
   return (
     <div
       className={classNames(c.root, containerClass, [c.focused, focused])}
@@ -63,6 +65,7 @@ const Value = props => {
         {multiple ? (
           <Multi
             values={value}
+            inputValue={inputValue}
             // trio
             components={components.multi}
             style={style.multi}
@@ -76,6 +79,7 @@ const Value = props => {
           <Single
             value={value}
             focused={focused}
+            inputValue={inputValue}
             // trio
             components={components.single}
             style={style.single}

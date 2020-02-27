@@ -41,7 +41,8 @@ const Single = props => {
     value,
     focused,
     onInputChange,
-    onInputKeyPress
+    onInputKeyPress,
+    inputValue
   } = props;
 
   // -components
@@ -58,9 +59,11 @@ const Single = props => {
       {focused ? (
         <div className={c.input}>
           <Input
+            controlled
+            value={inputValue}
             style={style.input}
             className={className.input}
-            placeholder={value || placeholder}
+            placeholder={value.label || placeholder}
             onChange={onInputChange}
             onKeyPress={onInputKeyPress}
           />
@@ -70,7 +73,7 @@ const Single = props => {
           <Label
             style={style.label}
             className={className.label}
-            value={value}
+            value={value.label}
           />
         </div>
       )}

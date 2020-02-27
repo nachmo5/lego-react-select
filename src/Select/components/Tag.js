@@ -63,7 +63,7 @@ const Tag = props => {
         <Label
           style={style.label}
           className={className.label}
-          value={value}
+          value={value.label}
           centerY
         />
       </div>
