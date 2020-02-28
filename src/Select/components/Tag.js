@@ -1,9 +1,9 @@
-import React, { isValidElement } from "react";
+import React, {  } from "react";
 
 // Styles
 import injectSheet from "react-jss";
 
-import { classNames, filterKeys } from "../.shared/helpers";
+import { classNames, filterKeys, isComponent } from "../.shared/helpers";
 import DefaultLabel from "./Label";
 import DefaultCloseIcon from "./CloseIcon";
 
@@ -50,8 +50,8 @@ const Tag = props => {
   } = props;
   // -components
   const { closeIcon, label } = components;
-  const CloseIcon = isValidElement(closeIcon) ? closeIcon : DefaultCloseIcon;
-  const Label = isValidElement(label) ? label : DefaultLabel;
+  const CloseIcon = isComponent(closeIcon) ? closeIcon : DefaultCloseIcon;
+  const Label = isComponent(label) ? label : DefaultLabel;
   // -styles
   const containerStyle = filterKeys(style, ["closeIcon", "label"]);
   // -className

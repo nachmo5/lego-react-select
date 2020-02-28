@@ -1,4 +1,4 @@
-import React, { isValidElement } from "react";
+import React from "react";
 
 // Components
 import DefaultValue from "./Value";
@@ -7,7 +7,7 @@ import DefaultMenu from "./Menu";
 // Styles
 import injectSheet from "react-jss";
 
-import { classNames, filterKeys } from "./.shared/helpers";
+import { classNames, filterKeys, isComponent } from "./.shared/helpers";
 
 const styles = {
   root: {
@@ -45,10 +45,8 @@ const Select = React.forwardRef((props, ref) => {
   // MENU props
   const { options, groupped } = props;
   // -components
-  const Value = isValidElement(components.value)
-    ? components.value
-    : DefaultValue;
-  const Menu = isValidElement(components.menu) ? components.menu : DefaultMenu;
+  const Value = isComponent(components.value) ? components.value : DefaultValue;
+  const Menu = isComponent(components.menu) ? components.menu : DefaultMenu;
   // -styles
   const containerStyle = filterKeys(style, ["value", "menu"]);
   // -className

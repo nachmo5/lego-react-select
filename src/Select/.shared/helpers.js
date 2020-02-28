@@ -15,3 +15,5 @@ export const filterKeys = (item = {}, params = []) => {
   });
   return result;
 };
+
+export const isComponent = element => typeof element === "function";

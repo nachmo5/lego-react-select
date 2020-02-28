@@ -1,4 +1,4 @@
-import React, { isValidElement } from "react";
+import React, {  } from "react";
 
 // Components
 import DefaultTag from "../components/Tag";
@@ -7,7 +7,7 @@ import DefaultInput from "../components/Input";
 // Styles
 import injectSheet from "react-jss";
 
-import { classNames, filterKeys } from "../.shared/helpers";
+import { classNames, filterKeys, isComponent } from "../.shared/helpers";
 
 const styles = theme => ({
   root: {
@@ -52,8 +52,8 @@ const Multi = props => {
   } = props;
   // -components
   const { input, tag } = components;
-  const Input = isValidElement(input) ? input : DefaultInput;
-  const Tag = isValidElement(tag) ? tag : DefaultTag;
+  const Input = isComponent(input) ? input : DefaultInput;
+  const Tag = isComponent(tag) ? tag : DefaultTag;
   // -styles
   const containerStyle = filterKeys(style, ["tag", "input"]);
   // -className

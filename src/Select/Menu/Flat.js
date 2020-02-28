@@ -1,10 +1,10 @@
-import React, { isValidElement } from "react";
+import React, {  } from "react";
 
 import DefaultOption from "../components/Option";
 
 // Styles
 import injectSheet from "react-jss";
-import { filterKeys, classNames } from "../.shared/helpers";
+import { filterKeys, classNames, isComponent } from "../.shared/helpers";
 
 const styles = theme => ({
   root: {
@@ -37,7 +37,7 @@ const Flat = props => {
 
   // -components
   const { option } = components;
-  const Option = isValidElement(option) ? option : DefaultOption;
+  const Option = isComponent(option) ? option : DefaultOption;
   // -styles
   const containerStyle = filterKeys(style, ["option"]);
   // -className

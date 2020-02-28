@@ -1,11 +1,11 @@
-import React, { isValidElement } from "react";
+import React from "react";
 
 import DefaultOption from "../components/Option";
 import DefaultHeader from "../components/Header";
 
 // Styles
 import injectSheet from "react-jss";
-import { filterKeys, classNames } from "../.shared/helpers";
+import { filterKeys, classNames, isComponent } from "../.shared/helpers";
 
 const styles = theme => ({
   root: {
@@ -47,8 +47,8 @@ const Flat = props => {
 
   // -components
   const { option, header } = components;
-  const Option = isValidElement(option) ? option : DefaultOption;
-  const Header = isValidElement(header) ? header : DefaultHeader;
+  const Option = isComponent(option) ? option : DefaultOption;
+  const Header = isComponent(header) ? header : DefaultHeader;
   // -styles
   const containerStyle = filterKeys(style, ["option", "header"]);
   // -className
@@ -61,7 +61,7 @@ const Flat = props => {
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
       {groups.map((group, g) => (
         <div key={g} className={c.group}>
-          {group.name && group.name.length > 0 && (
+          {group.name && group.name.length > 0 && group.options.length > 0 && (
             <div className={c.header} onClick={groupClick(group)}>
               <Header value={group.name} onClick={group.onClick} />
             </div>

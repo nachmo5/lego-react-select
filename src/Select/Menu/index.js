@@ -1,11 +1,11 @@
-import React, { isValidElement } from "react";
+import React from "react";
 
 import DefaultGroup from "./Group";
 import DefaultFlat from "./Flat";
 
 // Styles
 import injectSheet from "react-jss";
-import { filterKeys, classNames } from "../.shared/helpers";
+import { filterKeys, classNames, isComponent } from "../.shared/helpers";
 
 const styles = theme => ({
   root: {
@@ -36,24 +36,43 @@ const Menu = props => {
   } = props;
 
   // -components
-  const { flat, group } = components;
-  const Flat = isValidElement(flat) ? flat : DefaultFlat;
-  const Group = isValidElement(group) ? group : DefaultGroup;
+  const { flat, group, footer } = components;
+  const Flat = isComponent(flat) ? flat : DefaultFlat;
+  const Group = isComponent(group) ? group : DefaultGroup;
+  const Footer = isComponent(footer) ? footer : null;
   // -styles
-  const containerStyle = filterKeys(style, ["flat", "group"]);
+  const containerStyle = filterKeys(style, ["flat", "group", "footer"]);
   // -className
   const containerClass = className["container"] || "";
 
   return (
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
-      {groupped ? (
-        <Group
-          groups={options}
-          onGroupHeaderClick={onGroupHeaderClick}
-          onOptionClick={onOptionClick}
-        />
-      ) : (
-        <Flat options={options} onOptionClick={onOptionClick} />
+      <div>
+        {groupped ? (
+          <Group
+            groups={options}
+            onGroupHeaderClick={onGroupHeaderClick}
+            onOptionClick={onOptionClick}
+            // trio
+            components={components.group}
+            style={style.group}
+            className={className.group}
+          />
+        ) : (
+          <Flat
+            options={options}
+            onOptionClick={onOptionClick}
+            // trio
+            components={components.flat}
+            style={style.flat}
+            className={className.flat}
+          />
+        )}
+      </div>
+      {Footer && (
+        <div>
+          <Footer />
+        </div>
       )}
     </div>
   );

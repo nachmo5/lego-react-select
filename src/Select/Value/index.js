@@ -1,4 +1,4 @@
-import React, { isValidElement } from "react";
+import React, {  } from "react";
 
 // Styles
 import injectSheet from "react-jss";
@@ -6,7 +6,7 @@ import injectSheet from "react-jss";
 import DefaultSingle from "./Single";
 import DefaultMulti from "./Multi";
 import DefaultDropIcon from "../components/DropIcon";
-import { classNames, filterKeys } from "../.shared/helpers";
+import { classNames, filterKeys, isComponent} from "../.shared/helpers";
 
 const styles = theme => ({
   root: {
@@ -52,9 +52,9 @@ const Value = props => {
   } = props;
   // -components
   const { single, multi, dropIcon } = components;
-  const Single = isValidElement(single) ? single : DefaultSingle;
-  const Multi = isValidElement(multi) ? multi : DefaultMulti;
-  const DropIcon = isValidElement(dropIcon) ? dropIcon : DefaultDropIcon;
+  const Single = isComponent(single) ? single : DefaultSingle;
+  const Multi = isComponent(multi) ? multi : DefaultMulti;
+  const DropIcon = isComponent(dropIcon) ? dropIcon : DefaultDropIcon;
   // -styles
   const containerStyle = filterKeys(style, ["single", "multi", "dropIcon"]);
   // -className
