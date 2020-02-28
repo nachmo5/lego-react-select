@@ -15,7 +15,10 @@ const styles = theme => ({
     border: "1px solid " + theme.gray2,
     borderRadius: theme.borderRadius,
     "&:hover": {
-      borderColor: theme.primaryColor
+      borderColor: theme.primaryColor,
+      "& $suffix": {
+        color: theme.primaryColor
+      }
     }
   },
   focused: {
@@ -26,6 +29,7 @@ const styles = theme => ({
     overflow: "hidden"
   },
   suffix: {
+    color: theme.gray2,
     padding: theme.valuePadding,
     fontSize: theme.size / 2
   }
@@ -55,7 +59,7 @@ const Value = props => {
   const containerStyle = filterKeys(style, ["single", "multi", "dropIcon"]);
   // -className
   const containerClass = className["container"] || "";
-  
+
   return (
     <div
       className={classNames(c.root, containerClass, [c.focused, focused])}
@@ -92,7 +96,7 @@ const Value = props => {
       </div>
       {dropIconVisible && (
         <div className={c.suffix}>
-          <DropIcon />
+          <DropIcon style={style.dropIcon} className={className.dropIcon} />
         </div>
       )}
     </div>

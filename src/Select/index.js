@@ -20,7 +20,8 @@ const Select = props => {
     selected,
     onEnter,
     onDeleteValue,
-    showDownArrow
+    showDownArrow,
+    onSelect
   } = props;
   // Hooks
   const ref = useRef();
@@ -46,6 +47,8 @@ const Select = props => {
   if (!multiple && Array.isArray(value)) return "You forgot 'multiple' props";
   if (groupped && !options[0].name) return "Invalid groups format given";
 
+  /* ======== Options ======== */
+  const safeOptions = options || [];
   const formatOptions = os => {
     const usedAccessors = accessors || menuAccessors;
     return os.map((o, i) => {
@@ -63,6 +66,43 @@ const Select = props => {
       };
     });
   };
+  const filterOptions = os =>
+    os.filter(o => {
+      if (searched && searched.length > 0) {
+        return o.label.toLowerCase().includes(searched.toLowerCase());
+      }
+      return o;
+    });
+
+  const filterGroups = gs => {
+    const filtered = gs.map(g => ({
+      name: g.name,
+      options: filterOptions(g.options)
+    }));
+    return filtered.filter(g => g.options.length > 0);
+  };
+
+  const buildFinalOptions = os => {
+    if (filteredOptions.length === 0 && searched) {
+      const oz = [{ id: "_x_", label: searched, data: searched }];
+      return groupped ? [{ name: "", options: oz }] : oz;
+    }
+    return os;
+  };
+  const formattedOptions = groupped
+    ? safeOptions.map(g => ({
+        name: g.name,
+        options: formatOptions(g.options)
+      }))
+    : formatOptions(safeOptions);
+
+  const filteredOptions = groupped
+    ? filterGroups(formattedOptions)
+    : filterOptions(formattedOptions);
+
+  const finalOptions = buildFinalOptions(filteredOptions);
+
+  /* ======== Value ======== */
   const formatValue = v => {
     const usedAccessors = accessors || valueAccessors;
 
@@ -77,14 +117,6 @@ const Select = props => {
     };
   };
 
-  const safeOptions = options || [];
-  const menuOptions = groupped
-    ? safeOptions.map(g => ({
-        name: g.name,
-        options: formatOptions(g.options)
-      }))
-    : formatOptions(safeOptions);
-
   const safeValue = multiple ? (value ? value : []) : value ? value : "";
   const finalValue = multiple
     ? safeValue.map(formatValue)
@@ -98,6 +130,8 @@ const Select = props => {
     setFocused(true);
   };
   const onInputChange = e => {
+    setFocused(true);
+    setDropped(true);
     setSearched(e.target.innerText);
   };
   const onDeleteIconClick = (value, e) => {
@@ -116,7 +150,9 @@ const Select = props => {
   };
   // ______________Menu
   const onGroupHeaderClick = () => {};
-  const onOptionClick = option => {};
+  const onOptionClick = option => {
+    onSelect(option.data);
+  };
   const onMenuClick = () => {
     if (!multiple) {
       setDropped(false);
@@ -132,7 +168,7 @@ const Select = props => {
         ref={ref}
         focused={focused}
         dropped={dropped}
-        options={menuOptions}
+        options={finalOptions}
         value={finalValue}
         inputValue={searched}
         dropIconVisible={!dropped && showDownArrow}
@@ -170,7 +206,8 @@ Select.defaultProps = {
   options: [],
   onEnter: l => l,
   onDeleteValue: l => l,
-  showDownArrow: true
+  showDownArrow: true,
+  onSelect: l => l
 };
 
 export default Select;

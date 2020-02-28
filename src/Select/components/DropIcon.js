@@ -15,7 +15,6 @@ const styles = theme => ({
     cursor: "pointer",
     paddingLeft: 3,
     paddingRight: 3,
-    color: theme.gray,
     "&:hover": {
       color: theme.primaryColor
     }

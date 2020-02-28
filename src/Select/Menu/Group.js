@@ -61,9 +61,11 @@ const Flat = props => {
     <div className={classNames(c.root, containerClass)} style={containerStyle}>
       {groups.map((group, g) => (
         <div key={g} className={c.group}>
-          <div className={c.header} onClick={groupClick(group)}>
-            <Header value={group.name} onClick={group.onClick} />
-          </div>
+          {group.name && group.name.length > 0 && (
+            <div className={c.header} onClick={groupClick(group)}>
+              <Header value={group.name} onClick={group.onClick} />
+            </div>
+          )}
           <div className={c.options}>
             {group.options.map(option => (
               <div

@@ -8,7 +8,12 @@ import { classNames } from "../.shared/helpers";
 const styles = theme => ({
   root: { display: "flex" },
   label: { flexGrow: 1 },
-  selected: { color: theme.primaryColor, marginRight: 10 }
+  selected: {
+    color: theme.primaryColor,
+    marginRight: 10,
+    display: "flex",
+    alignItems: "center"
+  }
 });
 
 const Option = props => {
