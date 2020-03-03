@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 
 // Components
 import DefaultTag from "../components/Tag";
@@ -14,9 +14,10 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap",
     fontSize: theme.size / 2,
-    padding: theme.valuePadding,
-    paddingBottom: theme.valuePadding - theme.spaceBetweenRows,
-    paddingRight: theme.valuePadding - theme.spaceBetweenTags
+    paddingTop: theme.valueVerticalPadding,
+    paddingBottom: theme.valueVerticalPadding - theme.spaceBetweenRows,
+    paddingLeft: theme.valueHorizontalPadding,
+    paddingRight: theme.valueHorizontalPadding - theme.spaceBetweenTags
   },
   tag: {
     height: theme.size,
@@ -48,7 +49,9 @@ const Multi = props => {
     onInputChange,
     onDeleteIconClick,
     onInputKeyPress,
-    inputValue
+    inputValue,
+    focused,
+    placeholder
   } = props;
   // -components
   const { input, tag } = components;
@@ -81,10 +84,12 @@ const Multi = props => {
         <Input
           controlled
           value={inputValue}
+          focused={focused}
           style={style.input}
           className={className.input}
           onChange={onInputChange}
           onKeyPress={onInputKeyPress}
+          placeholder={values.length === 0 ? placeholder : ""}
         />
       </div>
     </div>

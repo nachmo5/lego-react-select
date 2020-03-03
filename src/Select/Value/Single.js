@@ -14,7 +14,10 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap",
     fontSize: theme.size / 2,
-    padding: theme.valuePadding
+    paddingTop: theme.valueVerticalPadding,
+    paddingBottom: theme.valueVerticalPadding,
+    paddingLeft: theme.valueHorizontalPadding * 3,
+    paddingRight: theme.valueHorizontalPadding
   },
   input: {
     flexGrow: 1,
@@ -61,6 +64,7 @@ const Single = props => {
           <Input
             controlled
             value={inputValue}
+            focused={focused}
             style={style.input}
             className={className.input}
             placeholder={value.label || placeholder}

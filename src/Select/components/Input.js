@@ -51,7 +51,7 @@ const Input = props => {
   };
 
   React.useEffect(() => {
-    if (controlled && ref.current) {
+    if (controlled && ref.current && document.activeElement == ref.current) {
       ref.current.innerText = value;
       setEndOfContenteditable(ref.current);
     }
@@ -94,7 +94,7 @@ Input.defaultProps = {
   controlled: false,
   multiline: false,
   placeholder: "",
-  focused: true,
+  focused: false,
   value: ""
 };
 export default injectSheet(styles)(Input);

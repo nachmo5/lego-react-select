@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 
 // Styles
 import injectSheet from "react-jss";
@@ -6,7 +6,7 @@ import injectSheet from "react-jss";
 import DefaultSingle from "./Single";
 import DefaultMulti from "./Multi";
 import DefaultDropIcon from "../components/DropIcon";
-import { classNames, filterKeys, isComponent} from "../.shared/helpers";
+import { classNames, filterKeys, isComponent } from "../.shared/helpers";
 
 const styles = theme => ({
   root: {
@@ -29,8 +29,8 @@ const styles = theme => ({
     overflow: "hidden"
   },
   suffix: {
-    color: theme.gray2,
-    padding: theme.valuePadding,
+    color: "gray",
+    padding: theme.valueVerticalPadding,
     fontSize: theme.size / 2
   }
 });
@@ -48,7 +48,8 @@ const Value = props => {
     onInputChange,
     onDeleteIconClick,
     onInputKeyPress,
-    inputValue
+    inputValue,
+    placeholder
   } = props;
   // -components
   const { single, multi, dropIcon } = components;
@@ -70,6 +71,8 @@ const Value = props => {
           <Multi
             values={value}
             inputValue={inputValue}
+            focused={focused}
+            placeholder={placeholder}
             // trio
             components={components.multi}
             style={style.multi}
@@ -81,9 +84,10 @@ const Value = props => {
           />
         ) : (
           <Single
+            placeholder={placeholder}
             value={value}
-            focused={focused}
             inputValue={inputValue}
+            focused={focused}
             // trio
             components={components.single}
             style={style.single}

@@ -15,7 +15,7 @@ const styles = {
     position: "relative" // necessary for dropdown
   },
   hidden: { display: "none" },
-  menu: { position: "absolute", width: "100%", zIndex: 1, marginTop: 2 }
+  menu: { position: "absolute", width: "100%", zIndex: 100, marginTop: 2 }
 };
 
 const Select = React.forwardRef((props, ref) => {
@@ -27,7 +27,8 @@ const Select = React.forwardRef((props, ref) => {
     className,
     focused,
     dropped,
-    dropIconVisible
+    dropIconVisible,
+    placeholder
   } = props;
   const {
     onClick,
@@ -66,6 +67,7 @@ const Select = React.forwardRef((props, ref) => {
           focused={focused}
           dropIconVisible={dropIconVisible}
           inputValue={inputValue}
+          placeholder={placeholder}
           // trio
           components={components.value}
           style={style.value}

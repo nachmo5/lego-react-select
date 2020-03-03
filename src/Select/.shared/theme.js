@@ -13,9 +13,10 @@ export default {
   // INPUT
   inputMinWidth: 50,
   // MULTI
-  valuePadding: 3,
+  valueVerticalPadding: 3,
+  valueHorizontalPadding: 3,
   // MENU
-  optionHeight: 40,
-  menuMaxHeight: 300,
+  optionHeight: 50,
+  menuMaxHeight: 240,
   optionPadding: 5
 };

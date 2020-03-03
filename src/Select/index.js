@@ -21,7 +21,8 @@ const Select = props => {
     onEnter,
     onDeleteValue,
     showDownArrow,
-    onSelect
+    onSelect,
+    placeholder
   } = props;
   // Hooks
   const ref = useRef();
@@ -51,6 +52,7 @@ const Select = props => {
   const safeOptions = options || [];
   const formatOptions = os => {
     const usedAccessors = accessors || menuAccessors;
+    if (!Array.isArray(os)) return [{ id: "x", label: "Invalid options" }];
     return os.map((o, i) => {
       if (!o) return { id: i, label: "Null option", data: "" };
       else if (typeof o === "string") {
@@ -67,12 +69,14 @@ const Select = props => {
     });
   };
   const filterOptions = os =>
-    os.filter(o => {
-      if (searched && searched.length > 0) {
-        return o.label.toLowerCase().includes(searched.toLowerCase());
-      }
-      return o;
-    });
+    !Array.isArray(os)
+      ? [{ id: "x", label: "Invalid options" }]
+      : os.filter(o => {
+          if (searched && searched.length > 0) {
+            return o.label.toLowerCase().includes(searched.toLowerCase());
+          }
+          return o;
+        });
 
   const filterGroups = gs => {
     const filtered = gs.map(g => ({
@@ -83,10 +87,12 @@ const Select = props => {
   };
 
   const buildFinalOptions = os => {
+    /*
     if (filteredOptions.length === 0 && searched) {
       const oz = [{ id: "_x_", label: searched, data: searched }];
       return groupped ? [{ name: "", options: oz }] : oz;
     }
+    */
     return os;
   };
   const formattedOptions = groupped
@@ -172,6 +178,7 @@ const Select = props => {
         value={finalValue}
         inputValue={searched}
         dropIconVisible={!dropped && showDownArrow}
+        placeholder={placeholder}
         // Methods
         onClick={onClick}
         onValueClick={onValueClick}
