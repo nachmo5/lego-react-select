@@ -6,7 +6,7 @@ import { Icon } from "antd";
 import { classNames } from "../.shared/helpers";
 
 const styles = theme => ({
-  root: { display: "flex" },
+  root: { display: "flex", width: "100%" },
   label: { flexGrow: 1 },
   selected: {
     color: theme.primaryColor,

@@ -9,7 +9,6 @@ import { filterKeys, classNames, isComponent } from "../.shared/helpers";
 
 const styles = theme => ({
   root: {
-    width: "100%",
     background: "white",
     maxHeight: theme.menuMaxHeight,
     overflowX: "hidden",

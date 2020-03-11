@@ -1,8 +1,8 @@
 import React from "react";
 import Select from "./Select";
 import "antd/dist/antd.css";
-import { Button, Checkbox as AntdCheckbox } from "antd";
-import Checkbox from "./Select/components/Checkbox";
+import { Button, Checkbox } from "antd";
+import Input from "./Select/components/Input";
 
 const App = props => {
   const [tags, setTags] = React.useState(["Tesp1", "Test2___"]);
@@ -19,8 +19,11 @@ const App = props => {
   return (
     <div
       className="App"
-      style={{ paddingLeft: 650, paddingTop: 100, width: "100%" }}
+      style={{ paddingLeft: 350, paddingTop: 100, width: "100%" }}
     >
+      <div style={{ width: 300, height: 50, border: "1px solid black" }}>
+        <Input  />
+      </div>
       <div>
         <div>Multiple</div>
         <div style={{ width: 300, marginBottom: 50 }}>
@@ -79,14 +82,6 @@ const App = props => {
             }}
           />
         </div>
-        <div style={{ width: 200, marginBottom: 50 }}>
-          <button onClick={() => setTags([...tags, "Tag " + tags.length + 1])}>
-            ADD
-          </button>
-          <button onClick={() => setTags([...tags].splice(0, tags.length - 1))}>
-            REMOVE
-          </button>
-        </div>
       </div>
       <div>
         <div>Single</div>
@@ -94,20 +89,7 @@ const App = props => {
           <Select value={value} options={options} selected={["One"]} />
         </div>
       </div>
-      <div>content editable</div>
-      {value.length ? value.length * 18 + "px" : "100%"}
-      <div style={{ width: 500 }}>
-        <input
-          style={{ width }}
-          onChange={e => {
-            setInputValue(e.target.value);
-          }}
-        />
-      </div>
-
-      <div>
-        <Select multiple />
-      </div>
+      <div></div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import injectSheet from "react-jss";
 import { classNames } from "../.shared/helpers";
 
@@ -6,72 +6,108 @@ const styles = {
   root: {
     height: "100%",
     width: "100%",
-    overflow: "hidden",
+    display: "flex",
+    cursor: "text"
+  },
+  input: {
+    width: "1px",
     // Focus
     "&:focus": {
       outline: 0
-    },
-    // Placeholder
-    "&:empty:before": {
-      content: "attr(placeholder)",
-      display: "block",
-      opacity: "0.4"
     },
     // Multiline
     whiteSpace: "nowrap"
   },
   multiline: {
     whiteSpace: "normal"
+  },
+  placeholder: {
+    marginLeft: "-1px",
+    flexGrow: 1,
+    opacity: 0.4,
+    cursor: "text",
+    userSelect: "none",
+    MozUserSelect: "none",
+    KhtmlUserSelect: "none",
+    WebkitUserSelect: "none",
+    OUserSelect: "none"
   }
 };
 
 const Input = props => {
-  const {
-    classes: c,
-    style,
-    className,
-    multiline,
-    placeholder,
-    focused,
-    controlled,
-    value
-  } = props;
   const ref = React.useRef();
+  /* =============== Props =================== */
+  const { classes: c, style, className } = props;
+  const { multiline, placeholder, focused, controlled, value } = props;
+  const { onKeyPress, onChange } = props;
+  /* =============== HOoks =================== */
+  const [_value, setValue] = useState(controlled ? value : "");
+
   React.useEffect(() => {
     if (focused) {
       ref.current && ref.current.focus();
     }
   });
-
-  const onKeyPress = e => {
+  React.useEffect(() => {
+    if (ref.current) {
+      ref.current.innerText = _value;
+    }
+    focused && setEndOfContenteditable(ref.current);
+  });
+  React.useEffect(() => {
+    if (controlled) setValue(value);
+  }, [value, controlled]);
+  /* =============== Methods =================== */
+  const _onKeyPress = e => {
     if (e.key === "Enter" && !multiline) {
       e.preventDefault();
     }
-    props.onKeyPress(e);
+    onKeyPress(e);
+  };
+  const _onChange = e => {
+    // remove breaks
+    const formatted = (e.target.innerText || "")
+      .split("")
+      .filter(v => v !== "\n")
+      .join("");
+    setValue(formatted);
+    onChange(e);
   };
 
-  React.useEffect(() => {
-    if (controlled && ref.current && document.activeElement == ref.current) {
-      ref.current.innerText = value;
-      setEndOfContenteditable(ref.current);
-    }
-  });
+  const onParentClick = () => {
+    ref.current && ref.current.focus();
+    setEndOfContenteditable(ref.current);
+  };
+  const onInputClick = e => {
+    e.stopPropagation();
+  };
+  const isBlank = v => !v || v.length === 0;
+  const placeholderMode = isBlank(ref.current ? ref.current.innerText : "");
+
   return (
-    <div
-      ref={ref}
-      contentEditable
-      placeholder={placeholder}
-      // style
-      className={classNames(c.root, className, [c.multiline, multiline])}
-      style={style}
-      // Methods
-      onKeyPress={onKeyPress}
-      onInput={props.onChange}
-    />
+    <div className={c.root} onClick={onParentClick}>
+      <div
+        ref={ref}
+        onClick={onInputClick}
+        contentEditable
+        // style
+        className={classNames(
+          c.input,
+          className,
+          [c.multiline, multiline],
+          [c.placeholderMode, placeholderMode]
+        )}
+        style={style}
+        // Methods
+        onKeyPress={_onKeyPress}
+        onInput={_onChange}
+      />
+      {placeholderMode && <div className={c.placeholder}>{placeholder}</div>}
+    </div>
   );
 };
 
-function setEndOfContenteditable(contentEditableElement) {
+const setEndOfContenteditable = contentEditableElement => {
   var range, selection;
   if (document.createRange) {
     //Firefox, Chrome, Opera, Safari, IE 9+
@@ -88,13 +124,15 @@ function setEndOfContenteditable(contentEditableElement) {
     range.collapse(false); //collapse the range to the end point. false means collapse to end rather than the start
     range.select(); //Select the range (make it the visible selection
   }
-}
+};
 
 Input.defaultProps = {
   controlled: false,
   multiline: false,
   placeholder: "",
   focused: false,
-  value: ""
+  value: "",
+  onKeyPress: l => l,
+  onChange: l => l
 };
 export default injectSheet(styles)(Input);

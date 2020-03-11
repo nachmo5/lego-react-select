@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 
 import DefaultOption from "../components/Option";
 
@@ -13,8 +13,10 @@ const styles = theme => ({
     fontFamily: theme.fontFamily
   },
   option: {
+    display: "flex",
+    alignItems: "center",
     cursor: "pointer",
-    height: theme.size,
+    height: theme.optionHeight,
     lineHeight: theme.size + "px",
     paddingLeft: theme.optionPadding,
     paddingRight: theme.optionPadding,

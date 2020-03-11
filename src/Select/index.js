@@ -3,27 +3,16 @@ import React, { useRef, useState, useEffect } from "react";
 // Styles
 import { ThemeProvider } from "react-jss";
 
-import defaultTheme from "./.shared/theme";
+import { MENU, VALUE, SELECT } from "./.shared/theme";
 import View from "./view";
 
+/* =============== COMPONENTS ================ */
 const Select = props => {
-  const {
-    theme,
-    multiple,
-    options,
-    groupped,
-    value,
-    cleanSearchOnEnter,
-    menuAccessors,
-    valueAccessors,
-    accessors,
-    selected,
-    onEnter,
-    onDeleteValue,
-    showDownArrow,
-    onSelect,
-    placeholder
-  } = props;
+  const { theme, showDownArrow } = props;
+  const { cleanSearchOnEnter, value, multiple, placeholder } = props;
+  const { groupped, options, selected } = props;
+  const { onSelect, onDeleteValue, onEnter } = props;
+  const { menuAccessors, valueAccessors, accessors } = props;
   // Hooks
   const ref = useRef();
   // Internal state
@@ -168,7 +157,7 @@ const Select = props => {
   };
 
   return (
-    <ThemeProvider theme={{ ...defaultTheme, ...theme }}>
+    <ThemeProvider theme={{ ...VALUE, ...SELECT, ...theme }}>
       <View
         {...props}
         ref={ref}

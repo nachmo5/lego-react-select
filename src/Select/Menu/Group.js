@@ -22,8 +22,10 @@ const styles = theme => ({
     color: "rgb(0, 0, 0, 0.45)"
   },
   option: {
+    display: "flex",
+    alignItems: "center",
     cursor: "pointer",
-    height: theme.size,
+    height: theme.optionHeight,
     lineHeight: theme.size + "px",
     paddingLeft: theme.optionPadding * 3,
     paddingRight: theme.optionPadding,
