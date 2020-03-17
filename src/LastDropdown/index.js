@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useDiv } from "./.shared/hooks";
+import Dropdown from "./Dropdown";
 
-const Dropdown = props => {
+const Index = props => {
   /* =================== Props ================== */
   const { children, content, classes: c } = props;
   const controlled = typeof children !== "function";
@@ -16,8 +17,9 @@ const Dropdown = props => {
   return (
     <div>
       {!controlled ? children({ open, close, toggle }, opened) : children}
+      <Dropdown />
     </div>
   );
 };
 
-export default Dropdown;
+export default Index;
